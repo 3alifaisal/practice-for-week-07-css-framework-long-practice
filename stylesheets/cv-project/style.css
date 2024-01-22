@@ -1,0 +1,32 @@
+@import url("stylesheets/reset.css");
+
+@font-face {
+    font-family: 'Merriweather';
+  
+    src: url('https://fonts.gstatic.com/s/merriweather/v22/u-440qyriQwlOrhSvowK_l521w0.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+
+    src: url('https://fonts.gstatic.com/s/opensans/v22/mem8YaGs126MiZpBA-UFW50bbck.woff2') format('woff2');
+}
+
+h1{
+    font-family: 'Merriweather';
+        font-size: 28pt;
+        margin-left: 0.6in;
+        height: 20px;
+}
+
+span{
+    color: #1e5f9f;
+    font-weight: bold;
+}
+h2 {
+    font-weight: bold;
+    font-family: "open Sans";
+
+    color: #1e5f9f;
+    font-size: 9pt;
+}
