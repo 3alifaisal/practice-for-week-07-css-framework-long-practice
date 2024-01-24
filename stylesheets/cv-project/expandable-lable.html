@@ -18,18 +18,34 @@
         }
 
         /* Label styled as a button for triggering the toggle */
-        label {
-            
-            position: fixed;
+      
+        .container {
+           
+               position: fixed;
             top: 50%;
             left: 50%;
-            background-color: #3498db;
+          
+            
             padding: 30px;
-            color: #fff;
-            cursor: pointer;
+            
+           background-color: #fff;
             font-size: 10px;
             transition: all 0.3s ease-in-out;
-           
+            z-index: 2;
+            
+        }
+        .hidden-label {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff; /* Set a background color to capture clicks */
+        opacity: 0; /* Make the label transparent */
+        z-index: -1;
+        cursor: pointer; 
+        /* Ensure the label is positioned above the checkbox */
+       
         }
 
         .dim-overlay {
@@ -43,20 +59,28 @@
     z-index: 1;
     opacity: 0;
     pointer-events: none; /* Allows clicks to pass through the overlay */
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-out;
         }
         /* Apply styles when the checkbox is checked */
-        #toggle-checkbox:checked ~ label {
+        #toggle-checkbox:checked ~ .container {
             
             
             transform: scale(1.2);
             font-size: 20px;
-            
-            z-index: 1;
+            box-shadow: 2px 2px 100px rgba(0, 0, 0, 0.3);
+            background-color: #fff;
+            border: 1px solid rgba(204, 213, 219, 0.92);
+            z-index: 5;
+            user-select: text;
+            cursor: auto;
         }
         #toggle-checkbox:checked ~ .dim-overlay {
         opacity: 1;
         pointer-events: auto; /* Enables clicks on the overlay */
+        }
+        .text{
+            z-index: 2;
+            display: inline;
         }
     </style>
 </head>
@@ -69,10 +93,28 @@ aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
 aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
 occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     <!-- Hidden checkbox input -->
+    
+    
+    <!-- Label styled as a button for triggering the toggle -->
+    <!-- <label for="toggle-checkbox">toggle Active state</label> -->
     <input type="checkbox" id="toggle-checkbox">
     <div class="dim-overlay"></div>
-    <!-- Label styled as a button for triggering the toggle -->
-    <label for="toggle-checkbox">Toggle Active State</label>
+    <div class="container">
+        
+        <label for="toggle-checkbox" class="hidden-label">feefef</label>
+       
+        <div class="text"> this the section where the text goes
+            r adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+            aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+            occaecat cupidatat non proident, su
+        </div>
+    </div>
+
+
+   
+        
+    
 </body>
 
 </html>
