@@ -4,49 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Button</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
+    <title>Button</title> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   
     <style>
         .header{
     display: flex;
     flex-direction: column;
-    text-align: center;
+    justify-content: center;   
+    align-items: center;
+    padding: 40px ;
+    
+    gap: 10px;
     position: absolute;
     left: 2in;
-    width: 5in;
+    width: 2in;
+   
    
 }
         .b_header{
-    font-size: 15pt;
+   
     font-family: "Merriweather";
-    padding-bottom: 100px ;
-    border: none;
-    border-top:1px solid black;
-    background: none;
-    opacity: 0;
-    text-decoration: none;
-   transition: all 0.2s ease-in-out;
-    color: black;
+    display: flex;
+    align-items: center;
+    color: black; 
+   text-decoration: none;
   
 }
    
-.b_header:hover, .b_header:focus, .b_header:active {
-	background-color: #1e5f9f;
-    text-align: center;
-	color: white;
+.b_header:hover  .button-name-hidden {
+
+   border-bottom: 1px solid black;
     opacity: 1;
-    align-self: flex-start;
+    font-weight: bolder;
+    
 
 	}
+.icon-wrapper{
+    display: inline-flex;
+    padding: 3px 5px;
+
+   
+    font-size: 20pt;
+}
+.icon-wrapper::before{
+    content: ">";
+    margin-right: 5px;
+    font-size: large;
+    font-size: 20pt;
+    display: inline-block;
+    font-weight: bolder;
+    
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+    transition: transform 0.3s ease-out;
+
+} 
+.b_header:hover .icon-wrapper::before{
+    
+    transform: translate(0,2px) rotate(-180deg);;
+
+    
+}
+
+.b_header:hover .home-button{
+    opacity: 0.5;
+}
+
+.home-button{
+    transition: opacity 0.3s ease-in-out;
+}
+.button-name-hidden{
+    display: inline-block;
+     font-size: 15pt;
+    font-family: "Merriweather";
+  
+    border: none;
+  
+   
+    opacity: 0.5;
+    
+   transition: all 0.3 s ease-in-out;
+    color: black;
+    margin-top: 5px;
+    margin-right: 10px;
+   
+}
 
     </style>
 </head>
 <body>
+   <div class="header">
+    <a class="b_header" href="home.html">
+        <div class="button-name-hidden">H O M E</div>
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-house home-button"></i>
+        </div>
+    </a>
+    </div>
+
    
-    <div class="header">
-    
-   
-    <a class="b_header " href="home.html"><i class=" home-button fa-solid fa-house"> H o m e</i></a>
     </div>
 </body>
 </html>
