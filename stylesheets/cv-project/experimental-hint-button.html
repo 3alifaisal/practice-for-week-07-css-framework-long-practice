@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox Animation Example</title>
+    <style>
+        /* Define the animation */
+        @keyframes exampleAnimation {
+              0% {
+        
+        font-size: 10px;
+      }
+      30% {
+        
+        font-size: 20px;
+      }
+      60%{
+        
+        font-size: 20px;
+      }
+      100% {
+        
+       font-size: 30px;
+      }
+
+        }
+
+        /* Apply the animation to an element when the checkbox is checked */
+        input[type="checkbox"]:checked ~.animated-element {
+            animation: exampleAnimation 10s ease-in-out ;
+           
+        }
+
+        /* Initial style for the animated element */
+        .animated-element {
+            transform: scale(1);
+            font-size: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <label>
+        <input type="checkbox" id="toggleCheckbox"> Check me
+        <div class="animated-element">I'm animated!</div>
+
+    </label>
+
+    <!-- Element to animate -->
+  
+</body>
+
+</html>
+
+<!-- this fucking works!!!!!!!! -->

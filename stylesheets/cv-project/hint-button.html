@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Button</title> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   
+    <style>
+ 
+@font-face {
+    font-family: 'Open Sans';
+
+    src: url('https://fonts.gstatic.com/s/opensans/v22/mem8YaGs126MiZpBA-UFW50bbck.woff2') format('woff2');
+}
+         .dim-overlay {
+           
+              position: fixed;
+                top: 0;
+                left: 0;
+             width: 100vw;
+    height: 100vh;
+    background-color: rgba(204, 213, 219, 0.92); /* Foggy blue background */
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none; /* Allows clicks to pass through the overlay */
+   
+        }
+        .header{
+   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+    align-items: center;
+    padding: 40px ;
+    
+    gap: 10px;
+    position: relative;
+    left: 9in;
+    top: 4in;
+    width: 7in;
+   
+   
+}
+#hidden-input{
+   display: none;
+}
+#hidden-input:checked ~ .b_header{
+    display: none;
+}
+
+
+@keyframes diming {
+    0%{
+        opacity: 0;
+    }
+    10%{
+        opacity: 1;
+    }
+    90%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+@keyframes showMessage {
+    0%{
+        
+        font-size: 10px;
+        opacity: 0;
+        
+       
+    }
+    10%{
+       
+        font-size: 20px;
+        opacity:1;
+        transform: translate(-100%,-100%);
+        box-shadow: 2px 2px 100px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(204, 213, 219, 0.92);
+       
+      
+    }
+    90%{
+       
+       font-size: 20px;
+        opacity:1;
+        transform: translate(-100%,-100%);
+        box-shadow: 2px 2px 100px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(204, 213, 219, 0.92);
+        
+    
+    }
+    100%{
+        font-size: 10px;
+        opacity: 0;
+        transform: translate(0%,0%);
+    }
+}
+#hidden-input:checked~ .hidden-text{
+    animation: showMessage 5s ease-out;
+}
+#hidden-input:checked~ .dim-overlay{
+    animation: diming 5s ease-out;
+}
+.hidden-text{
+    font-family: "Open-sans";
+    position: absolute;
+   
+   opacity: 0;
+    font-size: 10px;
+    
+    pointer-events: none;
+    user-select: none;
+    z-index: 2;
+    padding: 30px;
+}
+    
+
+        .b_header{
+   
+    font-family: "Merriweather";
+    display: flex;
+    align-items: center;
+    color: black; 
+   text-decoration: none;
+   
+
+  
+}
+   
+.b_header:hover  .button-name-hidden {
+
+   border-bottom: 1px solid black;
+    opacity: 1;
+    font-weight: bolder;
+    
+
+	}
+.icon-wrapper{
+    display: inline-flex;
+    padding: 3px 5px;
+
+   
+    font-size: 20pt;
+}
+.icon-wrapper::before{
+    content: ">";
+    margin-right: 5px;
+    font-size: large;
+    font-size: 20pt;
+    display: inline-block;
+    font-weight: bolder;
+    
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+    transition: transform 0.3s ease-out;
+
+} 
+.b_header:hover .icon-wrapper::before{
+    
+    transform: translate(0,2px) rotate(-180deg);;
+
+    
+}
+
+.b_header:hover .home-button{
+    opacity: 0.5;
+}
+
+.hint-button{
+    transition: opacity 0.3s ease-in-out;
+}
+.button-name-hidden{
+    display: inline-block;
+     font-size: 15pt;
+    font-family: "Merriweather";
+  
+    border: none;
+  
+   
+    opacity: 0.5;
+    
+   transition: all 0.3 s ease-in-out;
+    color: black;
+    margin-top: 5px;
+    margin-right: 10px;
+   
+}
+
+    </style>
+</head>
+<body>
+   <div class="header">
+    <input type="checkbox" id="hidden-input">
+    <label for="hidden-input" class="b_header" href="home.html">
+        <div class="button-name-hidden">Press Me</div>
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-lightbulb fa-beat hint-button"></i>
+        </div>
+    </label>
+    <div class="hidden-text">
+      <p>Press inside each section to expand it for better readability</p>
+    </div>
+    <div class="dim-overlay"></div>
+    </div>
+    
+   
+    </div>
+  
+</body>
+</html>
