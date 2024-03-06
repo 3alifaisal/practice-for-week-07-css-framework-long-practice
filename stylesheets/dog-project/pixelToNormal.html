@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CSS Pixel Art</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .box {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 10px;
+            background-color: black;
+        }
+
+        .box img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+                 filter: brightness(1.2) contrast(1.5) saturate(1.5); 
+        }
+      .box.pixel{
+        position: absolute;
+      }
+        #pixelCanvas {
+            image-rendering: pixelated;
+               filter: brightness(1.2) contrast(1.5) saturate(1.5); 
+        }
+
+        .box.pixel canvas {
+            color: white;
+            display: block;
+            width: 100%;
+            height: 100%;
+                 
+        }
+
+        .box.pixel::before {
+            opacity: 1;
+            filter: blur(1.8px);
+            content: "";
+            text-align: center;
+            
+            font-size: 50px;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            background: repeating-linear-gradient(0deg, #0006 0%, #0006 4%, transparent 4%, transparent 96%, #0006 96%, #0006 100%),
+                repeating-linear-gradient(90deg, #0006 0%, #0006 4%, transparent 4%, transparent 96%, #0006 96%, #0006 100%);
+            background-size: 10px 10px;
+        }
+
+        #button{
+           position: absolute;
+           left: px;
+           display: none;;
+      
+        }
+        label{
+            position: absolute;
+            left: 10px;
+            border: 1px solid black;
+            padding: 5px;
+            color: black;
+            background-color: lightgray;
+            user-select: none;
+        }
+         #button:checked~label{
+            background-color: rgb(106, 106, 116);
+             transition: all 2s ease-in;
+         } 
+        #button:checked~.box img {
+            transition: all 2s ease-out;
+        
+            opacity: 1;
+        }
+        /* #button:active~.box.pixel canvas{
+                transition: all 2s ease-in-out;
+                opacity: 0;
+               
+        } */
+            #button:checked~.box.pixel::before {
+                transition: all 1s ease-in-out;
+                opacity: 0;
+               
+        }
+    </style>
+</head>
+
+<body>
+    <input id="button" type="checkbox"></button>
+    <label for="button">press me </label>
+    <div class="box">
+        <img src= "https://images.dog.ceo/breeds/akita/An_Akita_Inu_resting.jpg"alt="Original Image">
+    </div>
+    <div class="box pixel">
+        <canvas id="pixelCanvas"></canvas>
+
+    </div>
+
+    <script>
+
+        const originalImage = document.querySelector('.box img');
+        const pixelCanvas = document.getElementById('pixelCanvas');
+        const pixelCanvasContext = pixelCanvas.getContext('2d');
+
+        // Load the image
+        const loadImage = async () => {
+            try {
+                const response = await fetch(originalImage.src);
+                const blob = await response.blob();
+                const dataUrl = await blobToDataURL(blob);
+                pixelCanvas.width = originalImage.width / 15;
+                pixelCanvas.height = originalImage.height / 15;
+
+                // Draw the pixelated image on the canvas
+                pixelCanvasContext.drawImage(originalImage, 0, 0, pixelCanvas.width, pixelCanvas.height);
+
+            } catch (error) {
+                console.error('Error loading image:', error);
+            }
+        };
+
+        // Convert Blob to Data URL
+        const blobToDataURL = (blob) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        };
+
+        // Trigger the process on image input change
+        const handleImage = () => {
+            loadImage();
+        };
+
+        // Execute the script after the entire document has loaded
+        window.onload = () => {
+            loadImage();
+        };
+    </script>
+</body>
+
+</html>

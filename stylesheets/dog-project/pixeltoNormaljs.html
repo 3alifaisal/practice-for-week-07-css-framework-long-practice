@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CSS Pixel Art</title>
+    
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .box {
+            position: relative;
+            width: 200px;
+            height: 400px;
+            margin: 10px;
+            background-color: black;
+        }
+
+        .box img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+
+        }
+
+
+        #pixelCanvas {
+            image-rendering: pixelated;
+            filter: brightness(1.2) contrast(1.5) saturate(1.5);
+        }
+
+        .box.pixel canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            --before-opacity: 1;
+        }
+
+        .box.pixel::before {
+            opacity: var(--before-opacity);
+           
+            filter: blur(1.1px);
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            background: repeating-linear-gradient(0deg, #0006 0%, #0006 4%, transparent 4%, transparent 96%, #0006 96%, #0006 100%),
+                repeating-linear-gradient(90deg, #0006 0%, #0006 4%, transparent 4%, transparent 96%, #0006 96%, #0006 100%);
+            background-size: 10px 10px;
+        }
+        #button{
+           padding: 5px;
+        }
+        .box.pixel.hide-before::before {
+    display: none;
+}
+    </style>
+</head>
+
+<body>
+    <button id="button">click me 
+    </button>
+    <div class="box">
+        <img src="monalisa.jpg" alt="Original Image">
+    </div>
+    <div class="box pixel">
+        <canvas id="pixelCanvas"></canvas>
+
+    </div>
+
+    <script>
+
+        const originalImage = document.querySelector('.box img');
+        const pixelCanvas = document.getElementById('pixelCanvas');
+        const pixelCanvasContext = pixelCanvas.getContext('2d');
+        let index = 10;
+
+        // Load the image
+        const loadImage = async () => {
+            try {
+                const response = await fetch(originalImage.src);
+                const blob = await response.blob();
+                const dataUrl = await blobToDataURL(blob);
+                pixelCanvas.width = originalImage.width / index;
+                pixelCanvas.height = originalImage.height / index;
+
+                // Draw the pixelated image on the canvas
+                pixelCanvasContext.drawImage(originalImage, 0, 0, pixelCanvas.width, pixelCanvas.height);
+
+            } catch (error) {
+                console.error('Error loading image:', error);
+            }
+        };
+
+        // Convert Blob to Data URL
+        const blobToDataURL = (blob) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        };
+
+        // Trigger the process on image input change
+        const handleImage = () => {
+            loadImage();
+        };
+        function wait(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+        const button = document.querySelector("#button");
+        const canvasWrapper = document.querySelector(".box.pixel")
+
+        button.addEventListener("click", async function () {
+
+              let Brightness = 1.2;
+            let contrastSaturate = 1.5;
+               button.disabled = true;
+           while(index != 1){
+            await wait(100)
+            let computedOpacity = index/10 -0.2;
+          
+                    Brightness = Brightness - 0.02;
+               contrastSaturate = contrastSaturate - 0.05;
+            pixelCanvas.style.filter =`brightness(${Brightness }) contrast(${contrastSaturate}) saturate(${contrastSaturate})`
+             canvasWrapper.style.setProperty('--before-opacity', computedOpacity.toString());
+      
+            index--;
+            console.log(index)
+           
+            
+            handleImage()
+        
+           }
+            canvasWrapper.classList.toggle('hide-before');
+            handleImage();
+           
+        })
+        // Execute the script after the entire document has loaded
+        window.onload = () => {
+            loadImage();
+        };
+    </script>
+</body>
+
+</html>
